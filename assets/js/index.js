@@ -13,7 +13,6 @@ const closeModal = document.getElementById('closeModal')
 const totalRoundsEl  = document.getElementById('inputRounds')
 const startButton = document.getElementById('startButton')
 const finalScoreMsg = document.getElementById('finalScoreMsg')
-const tBody = document.getElementById("rankingBody")
 
 let totalRounds = 0
 let result = 0
@@ -31,10 +30,6 @@ const refreshTable = () => {
   table2.innerHTML = number2
 
   return { product, number1, number2 }
-}
-
-const load = () => {
-  refreshUsers()
 }
 
 const refreshAll = () => {  
@@ -140,7 +135,3 @@ const resetTimer = (stop) => {
   // resetProgressBar(0, 0)
   resetProgressBar(10, 10)
 }
-
-// const showModal = () => displayModal.click()
-
-load()
