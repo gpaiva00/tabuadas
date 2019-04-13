@@ -1,0 +1,78 @@
+html, body {
+  background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+}
+
+.container .card {
+  /* position: absolute; */
+  /* 
+   */
+  /* left: 50%; */
+  /* top: 60%; */
+  /* transform: translateX(-50%) translateY(-50%); */
+  border-color: transparent;
+}
+#ranking {
+  /* position: relative; */
+  /* top: 20%; */
+  /* transform: translateX(-50%) translateY(-50%); */
+
+  /* width: 100%; */
+  /* left: 45%; */
+}
+
+#scorePanel {
+  border: 1px green;
+}
+
+.numberView {
+  /* background-image: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%); */
+  background-image: linear-gradient(to top, #d299c2 0%, #fef9d7 100%);
+  font-size: 60px;
+  font-weight: bolder;
+}
+
+.numberView .numbers {
+  margin: 10px;
+}
+
+#progressBar {
+  width: 100%;
+  /* margin: 10px auto; */
+  height: 8px;
+  background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+#progressBar div {
+  height: 100%;
+  text-align: right;
+  padding: 0 2px;
+  /* line-height: 15px; same as #progressBar height if we want text middle aligned */
+  width: 0;
+  background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+  box-sizing: border-box;
+}
+
+.progressBarDanger {
+  background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);
+}
+
+.multiplier {
+  font-size: 18px;
+  color: rgb(85, 84, 84);
+  font-weight: bolder;
+}
+
+.play {
+  display: block;
+}
+
+.list-group-item {
+  text-align: center;
+}
+span .info {
+  font-size: 13px;
+}
+
+#round, #score {
+  font-size: 25px;
+}

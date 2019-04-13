@@ -1,0 +1,134 @@
+<html>
+
+<head>
+  <title>Tabuadas</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Bootstrap css -->
+  <link rel="stylesheet" type="text/css" href="./assets/css/index.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <!-- Game panel -->
+      <div class="col-md-7 mt-5">
+        <div class="card" style="width: 30rem;">
+          <!-- score -->
+          <div class="btn btn-success" id="scorePanel">
+            <!-- ACERTOS -->
+            <div class="float-left">
+              <!-- <i class="fas fa-check-circle fa-2x"></i> -->
+              <span class="badge badge-light" id="score">0</span>
+              <span class="info">Acertos</span>
+            </div>
+            <!-- Rodadas -->
+            <!-- <span class="info">Acertos</span> -->
+            <span class="badge badge-dark float-right mt-1" id="round">0</span>
+          </div>
+          <!-- numbers -->
+          <div class="numberView pb-5 pt-3">
+            <center>
+              <div class="numbers">
+                <label id="number1">0</label>
+                <label class="multiplier">x</label>
+                <label id="number2">0</label>
+              </div>
+            </center>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+                <center><h2 id="finalScoreMsg" class=""></h2></center>
+              </div>
+            </div>
+          </div>
+          <!-- options -->
+          <div class="list-group">
+            <button type="button" class="list-group-item list-group-item-action" id="op1" onclick="answer(1)" disabled></button>
+            <button type="button" class="list-group-item list-group-item-action" id="op2" onclick="answer(2)" disabled></button>
+            <button type="button" class="list-group-item list-group-item-action" id="op3" onclick="answer(3)" disabled></button>
+          </div>
+          <div id="progressBar">
+            <div class="bar"></div>
+          </div>
+          <div class="card-footer">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Rodadas</label>
+                  </div>
+                  <select class="custom-select" id="inputRounds" onchange="inputRounds()">
+                    <option value="0" selected>Escolha...</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <button class="btn btn-primary btn-sm" id="startButton" style="width: 100%;" onclick="startGame()" disabled>
+                  <i class="fas fa-play mr-1"></i> Novo Jogo
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Ranking -->
+      <div class="col-md-5 mt-5">
+        <div class="row">
+          <div class="col-md-6">
+            <h5>Placar</h5>
+          </div>
+          <div class="col-md-6">
+            <button class="btn btn-primary btn-sm" style="width: 150px;float: right;" onclick="newUser()">
+              <i class="fas fa-user mr-1"></i> Novo Jogador
+            </button>
+          </div>
+        </div>
+        <!-- Table -->
+        <table class="table table-responsive table-light mb-3" id="ranking">
+          <thead>
+            <!-- <p class="card-title">Ranking</p> -->
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Maior Pontuação</th>
+            </tr>
+          </thead>
+          <tbody id="rankingBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- bootstrap js  -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="./assets/js/pouchdb-7.0.0.min.js" type="text/javascript"></script>
+  <script>
+    var db = new PouchDB('tabuadas');
+  </script>
+  <script src="./assets/js/jquery-3.1.0.js"></script>
+  <script src="./assets/js/ranking.js" type="text/javascript"></script>
+  <script src="./assets/js/index.js" type="text/javascript"></script>
+  <script src="./assets/js/timer.js" type="text/javascript"></script>
+</body>
+
+</html>
