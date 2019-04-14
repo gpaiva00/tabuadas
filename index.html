@@ -34,25 +34,25 @@
           <!-- numbers -->
           <div class="numberView pb-5 pt-3">
             <center>
-              <div class="numbers">
-                <label id="number1">0</label>
-                <label class="multiplier">x</label>
-                <label id="number2">0</label>
-              </div>
+              <label id="number1">0</label>
+              <label class="multiplier">x</label>
+              <label id="number2">0</label>
             </center>
           </div>
           <div class="card-body">
-            <div class="row">
-              <div class="col-md-12">
-                <center><h2 id="finalScoreMsg" class=""></h2></center>
-              </div>
-            </div>
+            <center>
+              <h2 id="finalScoreMsg"></h2>
+            </center>
+
           </div>
           <!-- options -->
           <div class="list-group">
-            <button type="button" class="list-group-item list-group-item-action" id="op1" onclick="answer(1)" disabled></button>
-            <button type="button" class="list-group-item list-group-item-action" id="op2" onclick="answer(2)" disabled></button>
-            <button type="button" class="list-group-item list-group-item-action" id="op3" onclick="answer(3)" disabled></button>
+            <button type="button" class="list-group-item list-group-item-action" id="op1" onclick="answer(1)"
+              disabled></button>
+            <button type="button" class="list-group-item list-group-item-action" id="op2" onclick="answer(2)"
+              disabled></button>
+            <button type="button" class="list-group-item list-group-item-action" id="op3" onclick="answer(3)"
+              disabled></button>
           </div>
           <div id="progressBar">
             <div class="bar"></div>
@@ -74,7 +74,8 @@
                 </div>
               </div>
               <div class="col-md-6">
-                <button class="btn btn-primary btn-sm" id="startButton" style="width: 100%;" onclick="startGame()" disabled>
+                <button class="btn btn-primary btn-sm" id="startButton" style="width: 100%;" onclick="startGame()"
+                  disabled>
                   <i class="fas fa-play mr-1"></i> Novo Jogo
                 </button>
               </div>
@@ -89,7 +90,7 @@
             <h5>Placar</h5>
           </div>
           <div class="col-md-6">
-            <button class="btn btn-primary btn-sm" style="width: 150px;float: right;" onclick="newUser()">
+            <button class="btn btn-primary btn-sm" style="width: 150px;float: right;" onclick="showModal()">
               <i class="fas fa-user mr-1"></i> Novo Jogador
             </button>
           </div>
@@ -106,6 +107,50 @@
           </thead>
           <tbody id="rankingBody"></tbody>
         </table>
+      </div>
+    </div>
+    <input type="hidden" id="displayModal" data-toggle="modal" data-target="#exampleModal" />
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Novo Jogador</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">@</span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="Seu nome" name="playerName" id="playerName"
+                    onkeyup="refreshUserName()">
+                </div>
+
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                  </div>
+                  <input type="password" class="form-control" placeholder="Crie uma senha" name="playerPassword"
+                    id="playerPassword">
+                </div>
+              </div>
+              <div class="row col-md-12">
+                <p class="mx-auto" id="playerUserName"></p>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-primary" id="saveUser" onclick="" disabled>Salvar</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

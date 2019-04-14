@@ -13,6 +13,10 @@ const closeModal = document.getElementById('closeModal')
 const totalRoundsEl  = document.getElementById('inputRounds')
 const startButton = document.getElementById('startButton')
 const finalScoreMsg = document.getElementById('finalScoreMsg')
+const saveUserEl = document.getElementById('saveUser')
+const playerNameEl = document.getElementById('playerName')
+const playerPasswordEl = document.getElementById('playerPassword')
+const userNameEl = document.getElementById('playerUserName')
 const tBody = document.getElementById("rankingBody")
 
 let totalRounds = 0
@@ -141,6 +145,8 @@ const resetTimer = (stop) => {
   resetProgressBar(10, 10)
 }
 
-// const showModal = () => displayModal.click()
+const refreshUserName = () => userNameEl.innerHTML = playerNameEl.value
+
+const showModal = () => displayModal.click()
 
 load()

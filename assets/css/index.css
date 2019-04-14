@@ -31,10 +31,6 @@ html, body {
   font-weight: bolder;
 }
 
-.numberView .numbers {
-  margin: 10px;
-}
-
 #progressBar {
   width: 100%;
   /* margin: 10px auto; */
