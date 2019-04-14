@@ -1,20 +1,32 @@
 db.info().then((info) => {
-  // console.log(info);
+  console.log('db info', info)
   totalUsers = info.doc_count
-  // console.log('totalUsers', totalUsers);
-  
 })
 
-const newUser = () => {
-  const user = {
-    name: "Gabriel Paiva",
+const newUser = ({user}) => {
+  const newUser = {
+    name: user.name,
+    username: user.username,
+    password: user.password,
     score: 0,
     _id: `${totalUsers+1}`
   } 
 
-  db.put(user)
+  db.put(newUser)
 
   totalUsers++
+
+  closeModal.click()
+}
+
+const saveUser = () => {
+  const user = {
+    name: playerNameEl.value,
+    username: finalUserName,
+    password: playerPasswordEl.value
+  }
+
+  newUser({user})
 }
 
 const refreshUsers = () => {
@@ -24,12 +36,6 @@ const refreshUsers = () => {
     refreshRankingTable(doc.rows)
   });
 }
-
-const compose = (...functions) => data => functions.reduceRight((value, func) => func(value), data)
-
-const set = prop => obj => value => ((obj[prop] = value), obj)
-
-const setInnerHtml = set("innerHTML")
 
 const tag = t => contents => `<${t}>${contents}</${t}>`
 
@@ -48,8 +54,7 @@ const refreshRankingTable = (rows) => {
 
   })
 
-  console.log('items', items);
-  
+  // console.log('items', items);
 
   tBody.innerHTML = items.join("")
 }
@@ -58,6 +63,9 @@ db.changes({
   since: 'now',
   live: true
 }).on('change', refreshUsers)
+
+
+
 {
   /* <tr>
     <th scope="row">1</th>
@@ -66,4 +74,10 @@ db.changes({
   </tr> */
 }
 
+
+// const compose = (...functions) => data => functions.reduceRight((value, func) => func(value), data)
+
+// const set = prop => obj => value => ((obj[prop] = value), obj)
+
+// const setInnerHtml = set("innerHTML")
 

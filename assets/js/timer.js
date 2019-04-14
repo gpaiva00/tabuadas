@@ -1,4 +1,4 @@
-function resetProgressBar(timeleft, timetotal) {
+const resetProgressBar = (timeleft, timetotal) => {
   if (timeleft === 0) {
     clearTimeout(timer)
 
@@ -49,4 +49,11 @@ function resetProgressBar(timeleft, timetotal) {
         "background-image",
         "linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%)"
       )
+}
+
+const resetTimer = stop => {
+  clearTimeout(timer)
+
+  // resetProgressBar(0, 0)
+  resetProgressBar(10, 10)
 }
