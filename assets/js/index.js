@@ -12,6 +12,7 @@ const displayModal = document.getElementById("displayModal")
 const displayModa2 = document.getElementById("displayModal2")
 const progressBar = document.getElementById("progressBar")
 const closeModal = document.getElementById("closeModal")
+const closeModal2 = document.getElementById("closeModal2")
 const totalRoundsEl = document.getElementById("inputRounds")
 const startButton = document.getElementById("startButton")
 const finalScoreMsg = document.getElementById("finalScoreMsg")
@@ -60,8 +61,8 @@ const refreshAll = () => {
     eval("option" + i).innerHTML = generateRandomNumber(1, 30) // or 1, 100
   })
 
+  roundEl.innerHTML = totalRounds-round
   round++
-  roundEl.innerHTML = round
 
   // fill others options with random numbers
   // for(let i = 1; i < 4; i++) {
@@ -97,28 +98,27 @@ const gameOver = () => {
   result = 0
   table1.innerHTML = 0
   table2.innerHTML = 0
+  roundEl.innerHTML = 0
 
-  option1.innerHTML = ""
-  option2.innerHTML = ""
-  option3.innerHTML = ""
+  option1.innerHTML = ''
+  option2.innerHTML = ''
+  option3.innerHTML = ''
 
   option1.disabled = true
   option2.disabled = true
   option3.disabled = true
 
-  finalScoreMsg.innerHTML = `${score} Acerto${score > 1 ? "s" : ""}!`
+  finalScoreMsg.innerHTML = `${score} Acerto${score > 1 ? 's' : ''}!`
+  
+  $('#finalScoreMsg').animate({
+    'font-size': '45px'
+  }, 400)
+  
+  $('#progressBar').find('div').css({'width' : '0px'})
 
-  $("#finalScoreMsg").animate(
-    {
-      "font-size": "45px"
-    },
-    400
-  )
+  refreshPlayerScore(score)
 
   score = 0
-  $("#progressBar")
-    .find("div")
-    .css({ width: "0px" })
 }
 
 const inputRounds = () => {
@@ -136,7 +136,8 @@ const startGame = () => {
   option2.disabled = false
   option3.disabled = false
 
-  // startButton.disabled = true
+  finalScoreMsg.innerHTML = ''
+
   refreshAll()
 }
 
