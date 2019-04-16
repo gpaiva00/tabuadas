@@ -40,14 +40,6 @@ const refreshPlayerScore = score => {
   })
 }
 
-const compare = (a,b) => {
-  if (a.score < b.score)
-    return -1;
-  if (a.last_nom > b.last_nom)
-    return 1;
-  return 0;
-}
-
 db.changes({
   since: "now",
   live: true
