@@ -1,15 +1,14 @@
-db.info().then(info => {
-  console.log("db info", info)
-  totalUsers = info.doc_count
-})
 
 const refreshUsers = () => {
-  db.allDocs({ include_docs: true, descending: true }, (err, doc) => {
+  /* db.allDocs({ include_docs: true, descending: true }, (err, doc) => {
     console.log("docs", doc.rows)
     doc.rows.sort((a,b) => (a.doc.score < b.doc.score) ? 1 : ((b.doc.score < a.doc.score) ? -1 : 0)); 
 
     refreshRankingTable(doc.rows)
-  })
+  }) */
+
+  // db.insert({name: 'gab'})
+  db().each((r) => console.log(r))
 }
 
 const tag = t => contents => `<${t}>${contents}</${t}>`
@@ -40,10 +39,10 @@ const refreshPlayerScore = score => {
   })
 }
 
-db.changes({
+/* db.changes({
   since: "now",
   live: true
-}).on("change", refreshUsers)
+}).on("change", refreshUsers) */
 
 {
   /* <tr>

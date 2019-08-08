@@ -18,7 +18,7 @@ const generateMiniHash = (length = 3) =>
 const refreshUserName = () => {
   finalUserName = playerNameEl.value.replace(" ", "") + "" + generateMiniHash()
 
-  userNameEl.innerHTML = `<span class="text-secondary">Nome de usuário:</span> ${finalUserName}`
+  userNameEl.innerHTML = `<span class="text-secondary">Salve seu nome de usuário:</span> ${finalUserName}`
 }
 
 const savingPassword = () => {
@@ -32,7 +32,27 @@ const doLogin = (username = null, password = null) => {
   const pass = password || passwordLoginEl.value
   loginMessageEl.innerHTML = ""
 
-  db.allDocs({ include_docs: true, descending: true }, (err, doc) => {
+
+  // find user
+  const loggedUser = db({username, password})
+  
+  if(loggedUser.count() > 0) {
+    console.log('loggedUser', loggedUser)
+    
+    // store user
+    localStorage.setItem("username", loggedUser.username)
+    localStorage.setItem("password", loggedUser.password)
+    localStorage.setItem("name", loggedUser.name)
+    localStorage.setItem("_id", loggedUser._id)
+    localStorage.setItem("__id", loggedUser.__id)
+
+    refreshLoggedUser(loggedUser)
+    
+  } else {
+    console.log('Não achou :(')
+  }
+
+  /* db.allDocs({ include_docs: true, descending: true }, (err, doc) => {
     let loggedUser = doc.rows.filter(row =>
       row.doc.username === userName && row.doc.password === pass
         ? row.doc
@@ -54,13 +74,18 @@ const doLogin = (username = null, password = null) => {
     refreshLoggedUser(loggedUser)
 
     closeModal2.click()
-  })
+  }) */
+
+  const allRecords = db()
+  console.log('Records', allRecords.count())
+  
 }
 
 const refreshLoggedUser = (loggedUser) => {
   const username = loggedUser
     ? loggedUser.username
     : localStorage.getItem("username")
+
   const playerName = loggedUser ? loggedUser.name : localStorage.getItem("name")
   
   // if(username === null) console.log('eh null')
@@ -86,19 +111,16 @@ const refreshLoggedUser = (loggedUser) => {
 }
 
 const newUser = ({ user }) => {
-  const newUser = {
-    name: user.name,
-    username: user.username,
-    password: user.password,
-    score: 0,
-    _id: `${totalUsers + 1}`
-  }
+  user.score = 0
+  user._id = `${totalUsers + 1}`
 
-  db.put(newUser)
+  console.log('new user', user)
+
+  db.insert(user)
 
   totalUsers++
   
-  doLogin(newUser.username,newUser.password)
+  doLogin(user.username, user.password)
 
   closeModal.click()
 }
