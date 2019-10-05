@@ -27,68 +27,40 @@ const savingPassword = () => {
   }
 }
 
-const doLogin = (username = null, password = null) => {
-  const userName = username || userNameLoginEl.value
-  const pass = password || passwordLoginEl.value
+function doLogin(username = null, password = null) {
+  const _username = username || userNameLoginEl.value
+  const _password = password || passwordLoginEl.value
   loginMessageEl.innerHTML = ""
-
-
-  // find user
-  const loggedUser = db({username, password})
+  console.log('given username', _username);
   
-  if(loggedUser.count() > 0) {
-    console.log('loggedUser', loggedUser)
+
+  // check if user exists
+  const loggedUser = PlayersDb.find(player => player.username == _username && player.password == _password)
+  
+  if(loggedUser != undefined) {
+    console.log('loggedUser', loggedUser.name)
     
     // store user
     localStorage.setItem("username", loggedUser.username)
     localStorage.setItem("password", loggedUser.password)
     localStorage.setItem("name", loggedUser.name)
+    localStorage.setItem("id", loggedUser.id)
     localStorage.setItem("_id", loggedUser._id)
-    localStorage.setItem("__id", loggedUser.__id)
 
     refreshLoggedUser(loggedUser)
+    closeModal.click()
     
   } else {
     console.log('Não achou :(')
   }
-
-  /* db.allDocs({ include_docs: true, descending: true }, (err, doc) => {
-    let loggedUser = doc.rows.filter(row =>
-      row.doc.username === userName && row.doc.password === pass
-        ? row.doc
-        : false
-    )
-
-    if (loggedUser.length === 0)
-      return (loginMessageEl.innerHTML = "Usuário ou senha inválidos!")
-
-    loggedUser = loggedUser[0].doc
-    
-    // store user
-    localStorage.setItem("username", loggedUser.username)
-    localStorage.setItem("password", loggedUser.password)
-    localStorage.setItem("name", loggedUser.name)
-    localStorage.setItem("_id", loggedUser._id)
-    localStorage.setItem("_rev", loggedUser._rev)
-
-    refreshLoggedUser(loggedUser)
-
-    closeModal2.click()
-  }) */
-
-  const allRecords = db()
-  console.log('Records', allRecords.count())
-  
 }
 
-const refreshLoggedUser = (loggedUser) => {
+function refreshLoggedUser(loggedUser) {
   const username = loggedUser
     ? loggedUser.username
     : localStorage.getItem("username")
 
   const playerName = loggedUser ? loggedUser.name : localStorage.getItem("name")
-  
-  // if(username === null) console.log('eh null')
 
   if (username !== null) {
     console.log('logged', username)
@@ -103,29 +75,32 @@ const refreshLoggedUser = (loggedUser) => {
 
     newUserEl.style.display = "initial"
     logoutUserEl.style.display = "none"
-    loginUserEl.innerHTML = '<i class="fas fa-lock"></i>'+' Entrar'
+    loginUserEl.innerHTML = '<i class="ri-lock-line"></i>'+' Entrar'
     loginUserEl.disabled = false
-
-
   }
 }
 
-const newUser = ({ user }) => {
+function newUser({ user }) {
   user.score = 0
-  user._id = `${totalUsers + 1}`
+  user.id = `${PlayersDb.length + 1}`
 
   console.log('new user', user)
 
-  db.insert(user)
-
-  totalUsers++
+  const ajax = new XMLHttpRequest() 
   
-  doLogin(user.username, user.password)
+  ajax.open('POST', apiUrl, true)
+  ajax.setRequestHeader("content-type", "application/json");
+  ajax.send(JSON.stringify(user))
 
-  closeModal.click()
+  ajax.onreadystatechange = function() {
+    if(ajax.readyState == 4 && ajax.status == 200) {
+      refreshUsers()
+      closeModal.click()
+    }
+  }
 }
 
-const saveUser = () => {
+function saveUser () {
   const finalName = playerNameEl.value
     .replace(/\s(.)/g, function($1) {
       return $1.toUpperCase()
@@ -134,7 +109,7 @@ const saveUser = () => {
       return $1.toLowerCase()
     })
 
-  console.log('finalName', finalName)
+  // console.log('finalName', finalName)
   
   const user = {
     name: finalName,
@@ -145,12 +120,12 @@ const saveUser = () => {
   newUser({ user })
 }
 
-const logout = () => {
+function logout() {
   localStorage.removeItem('username')
   localStorage.removeItem('password')
   localStorage.removeItem('name')
+  localStorage.removeItem('id')
   localStorage.removeItem('_id')
-  localStorage.removeItem('_rev')
   
   refreshLoggedUser()
 }

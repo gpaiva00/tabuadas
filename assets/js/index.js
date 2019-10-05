@@ -17,14 +17,14 @@ const totalRoundsEl = document.getElementById("inputRounds")
 const startButton = document.getElementById("startButton")
 const finalScoreMsg = document.getElementById("finalScoreMsg")
 const tBody = document.getElementById("rankingBody")
-
+const apiUrl = 'https://jsonbox.io/box_f1b3750f0856cf59314d'
+var PlayersDb = []
 
 let totalRounds = 0
 let result = 0
 let round = 0
 let score = 0
 var timer = null
-var totalUsers = 0
 
 const refreshTable = () => {
   const number1 = generateRandomNumber()
