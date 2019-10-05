@@ -48,7 +48,7 @@ function doLogin(username = null, password = null) {
     localStorage.setItem("_id", loggedUser._id)
 
     refreshLoggedUser(loggedUser)
-    closeModal.click()
+    closeModal2.click()
     
   } else {
     console.log('Não achou :(')
